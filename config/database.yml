@@ -1,0 +1,24 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: lunchie_dev
+  username: admean
+  password: <%= ENV['LUNCHIE_DB_PASS'] %>
+  host: localhost
+  port: 5432
+
+test:
+  <<: *default
+  database: lunchie_test
+  username: admean
+  password: <%= ENV['LUNCHIE_DB_PASS'] %>
+
+production:
+  <<: *default
+  database: lunchie_production
+  username: lunchie
+  password: <%= ENV['LUNCHIE_DB_PASS'] %>
