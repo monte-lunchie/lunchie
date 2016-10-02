@@ -3,8 +3,22 @@ html
     title Lunchie
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all'
+    = stylesheet_link_tag    'https://fonts.googleapis.com/icon?family=Material+Icons'
     = javascript_include_tag 'application'
 
   body
     div ng-app="lunchie"
-      div ui-view=""
+      div layout="column" ng-cloak="" style="min-height: 100vh;"
+        section flex="" layout="row"
+          md-sidenav.md-sidenav-left md-component-id="drawer" md-disable-backdrop="" md-is-locked-open="true" md-whiteframe="4"
+            md-content.drawer-header
+              
+            md-content layout-margin=""
+          md-content flex=""
+            md-toolbar
+              .md-toolbar-tools
+                span.flex
+                md-button.md-icon-button aria-label="Settings"
+                  md-icon more_vert
+            div layout="column" layout-padding="" layout-align=("top center")
+              div ui-view=""
