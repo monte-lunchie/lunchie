@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
 
   def index
-    render text: '', layout: true
+    render html: '', layout: true
   end
 
 end

@@ -5,7 +5,16 @@
   'ng-token-auth'
 ]
 
-@lunchie.config ['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterProvider) ->
+@lunchie.config ['$stateProvider', '$urlRouterProvider', '$authProvider', ($stateProvider, $urlRouterProvider, $authProvider) ->
+  $authProvider.configure
+    apiUrl: '/api'
+
+  signUpState =
+    name: 'sign-up'
+    url: '/sign_up'
+    templateUrl: 'auth/sign_up.html'
+    controller: 'AuthCtrl'
+
   signInState =
     name: 'sign-in'
     url: '/sign_in'
@@ -18,9 +27,10 @@
     templateUrl: 'home.html'
     controller: 'AppCtrl'
 
+  $stateProvider.state signUpState
   $stateProvider.state signInState
   $stateProvider.state homeState
 
-  $urlRouterProvider.otherwise '/sign_in'
+  $urlRouterProvider.otherwise '/'
   return
 ]

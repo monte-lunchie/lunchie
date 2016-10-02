@@ -8,19 +8,15 @@ html
 
   body
     div ng-app="lunchie"
-      div.site-layout layout="column" ng-controller="AppCtrl" ng-cloak=""
+      div#site-layout layout="column" ng-controller="AppCtrl" ng-cloak=""
         section flex="" layout="row"
-          md-sidenav.md-sidenav-left md-component-id="drawer" md-disable-backdrop="" md-is-locked-open="{{ sigedIn }}" md-whiteframe="4"
+          md-sidenav.md-sidenav-left flex="15" ng-show="user.signedIn" md-component-id="drawer" md-is-locked-open="true" md-disable-backdrop="" md-whiteframe="4"
             md-content.drawer-header
             md-content layout-margin=""
-          md-content.site-content flex="" ng-class="{ 'sign-in': !signedIn }"
+          md-content#site-wrapper flex=""
             md-toolbar
               .md-toolbar-tools
-                md-icon restaurant_menu
-                h2 flex-offset="5"
-                  span
-                    | Lunchie
                 span.flex
                 md-button.md-icon-button
                   md-icon more_vert
-            div ui-view=""
+            div#site-content ui-view=""

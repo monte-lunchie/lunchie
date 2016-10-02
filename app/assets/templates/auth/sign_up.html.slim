@@ -4,15 +4,21 @@ div layout="row" layout-padding="" layout-align=("center center")
       md-card-avatar
         md-icon.md-avatar-icon account_circle
       md-card-header-text
-        span.md-title Sign In
-        span.md-subhead You can also sign in using Facebook or Github account
+        span.md-title Create an account
+        span.md-subhead You can also sign up using Facebook or Github account
     md-card-content.md-no-momentum
+      md-input-container.md-block
+        md-icon person
+        input ng-model="user.nickname" ng-required="true" type="text" placeholder="Nickname" /
       md-input-container.md-block
         md-icon email
         input ng-model="user.email" ng-required="true" type="email" placeholder="Email" /
       md-input-container.md-block
         md-icon lock
         input ng-model="user.password" ng-required="true" type="password" placeholder="Password" /
+      md-input-container.md-block
+        md-icon lock
+        input ng-model="user.password_confirmation" ng-required="true" type="password" placeholder="Password confirmation" /
         
     md-card-actions layout="row" layout-align=("space-between center") 
       .actions
@@ -21,5 +27,5 @@ div layout="row" layout-padding="" layout-align=("center center")
         md-button
           | Github
       .actions
-        md-button ng-click="signIn()"
-          | Sign in
+        md-button ng-click="signUp()"
+          | Sign up

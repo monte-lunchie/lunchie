@@ -1,3 +1,7 @@
-.site-layout {
+md-sidenav[md-component-id="drawer"] {
+  min-width: 256px;
+}
+
+#site-layout {
   min-height: 100vh;
 }
