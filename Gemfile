@@ -17,6 +17,10 @@ gem 'slim-rails'
 gem 'bower-rails'
 gem 'angular-rails-templates'
 
+gem 'devise'
+gem 'devise_token_auth'
+gem 'omniauth'
+
 group :development do
   gem 'pry'
   gem 'listen', '~> 3.0.5'

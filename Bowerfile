@@ -2,3 +2,5 @@ asset 'angular'
 asset 'angular-ui-router'
 asset 'angular-material'
 asset 'angular-resource'
+asset 'ng-token-auth'
+

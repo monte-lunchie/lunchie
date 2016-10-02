@@ -1,7 +1,8 @@
 @lunchie = angular.module 'lunchie', [
   'ui.router',
   'templates',
-  'ngMaterial'
+  'ngMaterial',
+  'ng-token-auth'
 ]
 
 @lunchie.config ['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterProvider) ->

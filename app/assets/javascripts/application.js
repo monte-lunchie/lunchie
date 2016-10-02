@@ -18,6 +18,8 @@
 //= require angular-animate
 //= require angular-aria
 //= require angular-ui-router
+//= require angular-cookie
+//= require ng-token-auth
 //= require angular-material
 //= require angular-rails-templates
 //= require_tree ../templates
