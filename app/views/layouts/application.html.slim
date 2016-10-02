@@ -1,0 +1,10 @@
+html
+  head
+    title Lunchie
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all'
+    = javascript_include_tag 'application'
+
+  body
+    div ng-app="lunchie"
+      div ui-view=""
