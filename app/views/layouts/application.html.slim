@@ -10,9 +10,28 @@ html
     div ng-app="lunchie"
       div#site-layout layout="column" ng-controller="AppCtrl" ng-cloak=""
         section flex="" layout="row"
-          md-sidenav.md-sidenav-left flex="15" ng-show="user.signedIn" md-component-id="drawer" md-is-locked-open="true" md-disable-backdrop="" md-whiteframe="4"
-            md-content.drawer-header
-            md-content layout-margin=""
+          md-sidenav.md-sidenav-left flex="15" ng-hide="!user.signedIn" md-component-id="drawer" md-is-locked-open="true" md-disable-backdrop="" md-whiteframe="4" layout="column" layout-align=("top stretch")
+            md-content.drawer-header layout="row" layout-align=("center center") layout-padding=""
+              .drawer-avatar
+                img src="https://openclipart.org/image/2400px/svg_to_png/215868/Awesome-Tux.png"
+            md-content.drawer-menu flex=""
+              md-menu-content
+                md-menu-item
+                  md-button
+                    md-icon person
+                    | Profile
+                md-menu-item
+                  md-button
+                    md-icon add
+                    | New order
+                md-menu-item
+                  md-button
+                    md-icon today
+                    | Today's orders
+                md-menu-item
+                  md-button ng-click="signOut()"
+                    md-icon exit_to_app
+                    | Sign out
           md-content#site-wrapper flex=""
             md-toolbar
               .md-toolbar-tools

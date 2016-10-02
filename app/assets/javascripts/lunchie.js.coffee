@@ -5,32 +5,38 @@
   'ng-token-auth'
 ]
 
-@lunchie.config ['$stateProvider', '$urlRouterProvider', '$authProvider', ($stateProvider, $urlRouterProvider, $authProvider) ->
-  $authProvider.configure
-    apiUrl: '/api'
+@lunchie.config [
+  '$stateProvider',
+  '$urlRouterProvider',
+  '$authProvider',
+  '$mdThemingProvider',
+  ($stateProvider, $urlRouterProvider, $authProvider) ->
 
-  signUpState =
-    name: 'sign-up'
-    url: '/sign_up'
-    templateUrl: 'auth/sign_up.html'
-    controller: 'AuthCtrl'
+    $authProvider.configure
+      apiUrl: '/api'
 
-  signInState =
-    name: 'sign-in'
-    url: '/sign_in'
-    templateUrl: 'auth/sign_in.html'
-    controller: 'AuthCtrl'
+    signUpState =
+      name: 'sign-up'
+      url: '/sign_up'
+      templateUrl: 'auth/sign_up.html'
+      controller: 'AuthCtrl'
 
-  homeState =
-    name: 'home'
-    url: ''
-    templateUrl: 'home.html'
-    controller: 'AppCtrl'
+    signInState =
+      name: 'sign-in'
+      url: '/sign_in'
+      templateUrl: 'auth/sign_in.html'
+      controller: 'AuthCtrl'
 
-  $stateProvider.state signUpState
-  $stateProvider.state signInState
-  $stateProvider.state homeState
+    homeState =
+      name: 'home'
+      url: ''
+      templateUrl: 'home.html'
+      controller: 'AppCtrl'
 
-  $urlRouterProvider.otherwise '/'
-  return
+    $stateProvider.state signUpState
+    $stateProvider.state signInState
+    $stateProvider.state homeState
+
+    $urlRouterProvider.otherwise '/'
+    return
 ]
