@@ -1,0 +1,25 @@
+div layout="row" layout-padding="" layout-align=("center center")
+  md-card flex="40"
+    md-card-header
+      md-card-avatar
+        md-icon.md-avatar-icon account_circle
+      md-card-header-text
+        span.md-title Zaloguj się
+        span.md-subhead Możesz to zrobić używając kont z serwisów Facebook lub Github
+    md-card-content.md-no-momentum
+      md-input-container.md-block
+        md-icon person
+        input ng-model="user.email" ng-required="true" type="email" placeholder=("Email (wymagany)") /
+      md-input-container.md-block
+        md-icon lock
+        input ng-model="user.password" ng-required="true" type="password" placeholder=("Hasło (wymagane)") /
+        
+    md-card-actions layout="row" layout-align=("space-between center") 
+      .actions
+        md-button
+          | Facebook
+        md-button
+          | Github
+      .actions
+        md-button
+          | Logowanie

@@ -1,11 +1,6 @@
 angular
-  .module 'lunchie.app_ctrl', ['ngMaterial']
-  .controller 'AppCtrl', ($scope, $timeout, $mdSidenav) ->
-    buildToggler = (componentId) ->
-      ->
-        $mdSidenav(componentId).toggle()
-        return
+  .module 'lunchie'
+  .controller 'AppCtrl', ($scope) ->
+    $scope.signedIn = false
 
-    $scope.toggleLeft = buildToggler 'left'
-    $scope.toggleRight = buildToggler 'right'
     return
