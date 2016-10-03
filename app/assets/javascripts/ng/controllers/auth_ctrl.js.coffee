@@ -11,4 +11,8 @@ angular
     $scope.signIn = ->
       $auth.submitLogin $scope.user
 
+    # github
+    $scope.authenticateWith = (provider) ->
+      $auth.authenticate provider
+
     return

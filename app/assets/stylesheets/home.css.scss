@@ -7,13 +7,8 @@ md-sidenav[md-component-id="drawer"] {
   .drawer-header {
     background-color: $drawer_dark;
 
-    & + .drawer-menu {
-      background-color: $drawer_light;
-
-      & md-menu-content {
-        padding: 0;
-        background-color: $drawer_light;
-      }
+    & + .drawer-menu md-menu-content {
+      padding: 0;
     }
   }
 

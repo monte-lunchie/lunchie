@@ -17,7 +17,7 @@ html
             md-content.drawer-menu flex=""
               md-menu-content
                 md-menu-item
-                  md-button
+                  md-button ui-sref="profile" ng-class="{ 'md-accent': stateName == 'profile' }"
                     md-icon person
                     | Profile
                 md-menu-item

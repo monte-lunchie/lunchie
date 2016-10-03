@@ -20,6 +20,7 @@ gem 'angular-rails-templates'
 gem 'devise'
 gem 'devise_token_auth'
 gem 'omniauth'
+gem 'omniauth-github'
 
 group :development do
   gem 'pry'

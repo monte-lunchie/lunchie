@@ -5,7 +5,7 @@ div layout="row" layout-padding="" layout-align=("center center")
         md-icon.md-avatar-icon account_circle
       md-card-header-text
         span.md-title Create an account
-        span.md-subhead You can also sign up using Facebook or Github account
+        span.md-subhead You can also sign up using Github account
     md-card-content.md-no-momentum
       md-input-container.md-block
         md-icon person
@@ -22,10 +22,10 @@ div layout="row" layout-padding="" layout-align=("center center")
         
     md-card-actions layout="row" layout-align=("space-between center") 
       .actions
-        md-button
-          | Facebook
-        md-button
-          | Github
+        md-button ui-sref="sign-in"
+          | Sign in
       .actions
+        md-button ng-click="authenticateWith('github')"
+          | Authenticate with Github
         md-button ng-click="signUp()"
           | Sign up

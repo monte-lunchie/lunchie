@@ -1,6 +1,9 @@
 angular
   .module 'lunchie'
-  .controller 'AppCtrl', ($scope, $state, $auth, $mdToast) ->
+  .controller 'AppCtrl', ($scope, $state, $auth, $timeout, $mdToast) ->
+    $timeout ->
+      $scope.stateName = $state.current.name
+      
     $scope.showToastMessage = (message) ->
       toast = $mdToast.simple()
         .textContent message
@@ -10,7 +13,7 @@ angular
 
     # sign up
     $scope.$on 'auth:registration-email-success', (event, response) ->
-      $state.go 'home'
+      $state.go 'profile'
         .then ->
           $scope.showToastMessage 'Welcome aboard ' + response.nickname + '!'
 
@@ -20,7 +23,7 @@ angular
 
     # sign in
     $scope.$on 'auth:login-success', (event, response) ->
-      $state.go 'home'
+      $state.go 'profile'
         .then ->
           $scope.showToastMessage 'Welcome back ' + response.nickname + '!'
 
@@ -30,7 +33,7 @@ angular
 
     # token auth
     $scope.$on 'auth:validation-success', (event, response) ->
-      $state.go 'home'
+      $state.go 'profile'
         .then ->
           $scope.showToastMessage 'Welcome back ' + response.nickname + '!'
 

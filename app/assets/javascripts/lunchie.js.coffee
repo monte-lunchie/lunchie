@@ -14,6 +14,8 @@
 
     $authProvider.configure
       apiUrl: '/api'
+      authProviderPaths:
+        github: '/auth/github'
 
     signUpState =
       name: 'sign-up'
@@ -33,9 +35,15 @@
       templateUrl: 'home.html'
       controller: 'AppCtrl'
 
+    userProfileState =
+      name: 'profile'
+      url: '/user/profile'
+      templateUrl: 'user/show.html'
+
     $stateProvider.state signUpState
     $stateProvider.state signInState
     $stateProvider.state homeState
+    $stateProvider.state userProfileState
 
     $urlRouterProvider.otherwise '/'
     return
