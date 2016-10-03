@@ -2,7 +2,8 @@
   'ui.router',
   'templates',
   'ngMaterial',
-  'ng-token-auth'
+  'ng-token-auth',
+  'ngResource'
 ]
 
 @lunchie.config [
@@ -10,7 +11,12 @@
   '$urlRouterProvider',
   '$authProvider',
   '$mdThemingProvider',
-  ($stateProvider, $urlRouterProvider, $authProvider) ->
+  '$resourceProvider',
+  ($stateProvider, $urlRouterProvider, $authProvider, $resourceProvider) ->
+    # $resourceProvider.defaults.actions.get.responseType = 'json'
+    # $resourceProvider.defaults.actions.save.responseType = 'json'
+    # $resourceProvider.defaults.actions.query.responseType = 'json'
+    # $resourceProvider.defaults.actions.delete.responseType = 'json'
 
     $authProvider.configure
       apiUrl: '/api'
@@ -33,17 +39,31 @@
       name: 'home'
       url: ''
       templateUrl: 'home.html'
-      controller: 'AppCtrl'
 
     userProfileState =
       name: 'profile'
       url: '/user/profile'
       templateUrl: 'user/show.html'
 
+    ordersState =
+      name: 'orders'
+      url: '/orders'
+      abstract: true
+      template: '<div ui-view=""></div>'
+
+    newOrderState =
+      parent: 'orders'
+      name: 'new_order'
+      url: '/new'
+      templateUrl: 'orders/new.html'
+      controller: 'OrderCtrl'
+
     $stateProvider.state signUpState
     $stateProvider.state signInState
     $stateProvider.state homeState
     $stateProvider.state userProfileState
+    $stateProvider.state ordersState
+    $stateProvider.state newOrderState
 
     $urlRouterProvider.otherwise '/'
     return

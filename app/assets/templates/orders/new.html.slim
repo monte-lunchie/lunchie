@@ -1,0 +1,53 @@
+div layout="row" layout-padding="" layout-align=("center space-around")
+  md-card flex="33"
+    img.md-card-image ng-src="#{ image_path('restaurant.jpg') }" alt="Restaurant"
+    md-card-title
+      md-card-title-text
+        span.md-headline Create a new order
+        span.md-subhead Pick a restaurant you want to order your meal from.
+    md-card-content
+      form id="new-order-form" name="order_form"
+        md-autocomplete[
+          flex=""
+          required=""
+          md-input-name="restaurant_name"
+          md-input-minlength="2"
+          md-selected-item="restaurantSelected"
+          md-search-text="restaurantSearchTerm"
+          md-items="restaurant in filterRestaurants(restaurantSearchTerm)"
+          md-item-text="restaurant.name"
+          md-floating-label="Restaurant"]
+        md-item-template
+          span md-highlight-text="restaurantSearchTerm" {{ restaurantSelected.name }}
+        div ng-messages="order_form.restaurant_name.$error" ng-if="order_form.restaurant_name.$touched"
+          .md-warn ng-message="required"
+            | You 
+            strong must 
+            | provide a restaurant name.
+          
+    md-card-actions layout="row" layout-align="end center"
+      md-button
+        | Start your order
+    
+  md-card flex="33"
+    img.md-card-image ng-src="#{ image_path('restaurant2.jpg') }"
+    md-card-title
+      md-card-title-text
+        span.md-headline Latest orders
+        span.md-subhead Choose a restaurant where you recently placed your order.
+    md-card-content
+      md-list
+        md-list-item.md-2-line.md-with-secondary
+          .md-list-item-text
+            h3 Piwnica pod baranami
+            p Latest order date: 23.09.16
+          .md-secondary-container
+            md-button.md-secondary.md-icon-button
+              md-icon arrow_forward
+        md-list-item.md-2-line.md-with-secondary
+          .md-list-item-text
+            h3 Hipsterland
+            p Latest order date: Never
+          .md-secondary-container
+            md-button.md-secondary.md-icon-button
+              md-icon arrow_forward

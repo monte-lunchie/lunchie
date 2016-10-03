@@ -17,11 +17,11 @@ html
             md-content.drawer-menu flex=""
               md-menu-content
                 md-menu-item
-                  md-button ui-sref="profile" ng-class="{ 'md-accent': stateName == 'profile' }"
+                  md-button ui-sref="profile" ng-class="{ 'md-accent': $root.stateName == 'profile' }"
                     md-icon person
                     | Profile
                 md-menu-item
-                  md-button
+                  md-button ui-sref="new_order" ng-class="{ 'md-accent': $root.stateName == 'new_order' }"
                     md-icon add
                     | New order
                 md-menu-item
