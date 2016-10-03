@@ -7,23 +7,14 @@ div layout="row" layout-padding="" layout-align=("center space-around")
         span.md-subhead Pick a restaurant you want to order your meal from.
     md-card-content
       form id="new-order-form" name="order_form"
-        md-autocomplete[
-          flex=""
-          required=""
-          md-input-name="restaurant_name"
-          md-input-minlength="2"
-          md-selected-item="restaurantSelected"
-          md-search-text="restaurantSearchTerm"
-          md-items="restaurant in filterRestaurants(restaurantSearchTerm)"
-          md-item-text="restaurant.name"
-          md-floating-label="Restaurant"]
-        md-item-template
-          span md-highlight-text="restaurantSearchTerm" {{ restaurantSelected.name }}
-        div ng-messages="order_form.restaurant_name.$error" ng-if="order_form.restaurant_name.$touched"
-          .md-warn ng-message="required"
-            | You 
-            strong must 
-            | provide a restaurant name.
+        md-autocomplete flex="" required="" md-input-name="restaurant_name" md-selected-item="restaurantSelected" md-search-text="restaurantSearchTerm" md-items="restaurant in filterRestaurants(restaurantSearchTerm)" md-item-text="restaurant.name" md-floating-label="Restaurant"      
+          md-item-template
+            span md-highlight-text="restaurantSearchTerm" {{ restaurant.name }}
+          div ng-messages="order_form.restaurant_name.$error" ng-if="order_form.restaurant_name.$touched"
+            .md-warn ng-message="required"
+              | You 
+              strong must 
+              | provide a restaurant name.
           
     md-card-actions layout="row" layout-align="end center"
       md-button

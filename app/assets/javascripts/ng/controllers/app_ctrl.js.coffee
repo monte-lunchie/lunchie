@@ -2,7 +2,6 @@ angular
   .module 'lunchie'
   .controller 'AppCtrl', ($scope, $rootScope, $state, $auth, $timeout, $mdToast) ->
     $rootScope.$on '$stateChangeSuccess', (event, toState) ->
-      console.log toState
       $rootScope.stateName = toState.name
 
     $scope.showToastMessage = (message) ->
