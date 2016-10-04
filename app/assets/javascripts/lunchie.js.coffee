@@ -3,7 +3,8 @@
   'templates',
   'ngMaterial',
   'ng-token-auth',
-  'ngResource'
+  'ngResource',
+  'ngMessages'
 ]
 
 @lunchie.config [

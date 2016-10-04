@@ -1,6 +1,6 @@
 asset 'angular'
 asset 'angular-ui-router'
 asset 'angular-material'
+asset 'angular-messages'
 asset 'angular-resource'
 asset 'ng-token-auth'
-

@@ -3,7 +3,10 @@ angular
   .controller 'OrderCtrl', ($scope, $timeout, $q, Order, Restaurant) ->
     createSimpleFilter = (searchTerm) ->
       (restaurant) ->
-        restaurant.name.indexOf(searchTerm) != -1
+        name = angular.lowercase restaurant.name
+        term = angular.lowercase searchTerm
+
+        name.indexOf(term) != -1
 
     $scope.restaurants = Restaurant.query()
     $scope.order = {}
@@ -14,11 +17,12 @@ angular
     $scope.filterRestaurants = (searchTerm) ->
       deferred = $q.defer()
       if searchTerm
-        results = $scope.restaurants.filter(createSimpleFilter(searchTerm)) && [{ name: searchTerm }]
+        results = $scope.restaurants.filter(createSimpleFilter(searchTerm))
+        results.push { name: searchTerm } if results.length == 0
       else
         results = $scope.restaurants
 
-      $timeout deferred.resolve(results), 300
+      deferred.resolve(results)
       deferred.promise
 
     return

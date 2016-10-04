@@ -21,6 +21,7 @@
 //= require angular-cookie
 //= require ng-token-auth
 //= require angular-material
+//= require angular-messages
 //= require angular-rails-templates
 //= require_tree ../templates
 //= require_tree .
