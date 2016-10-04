@@ -2,7 +2,8 @@ Rails.application.routes.draw do
   scope :api, defaults: { format: :json } do
     mount_devise_token_auth_for 'User', at: 'auth'
 
-    resources :restaurants, except: [:new, :edit]
+    resources :restaurants, only: [:index, :show, :create], controller: 'api/restaurants'
+    resources :orders, only: [:index, :show, :create], controller: 'api/orders'
   end
 
   root 'home#index'

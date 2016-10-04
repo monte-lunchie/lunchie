@@ -1,4 +1,4 @@
 angular
   .module 'lunchie'
   .factory 'Order', ($resource) ->
-    $resource "orders/:id", { id: '@id' }
+    $resource "api/orders/:id", { id: '@id' }
