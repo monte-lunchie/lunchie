@@ -4,8 +4,8 @@ module Api
 
     # GET /restaurants.json
     def index
-      @restaurants = Restaurant.all
-      render json: @restaurants.to_json
+      @restaurants = Restaurant.left_joins(:meals)
+      render json: @restaurants.to_json(include: :meals)
     end
 
     # GET /restaurants/1.json

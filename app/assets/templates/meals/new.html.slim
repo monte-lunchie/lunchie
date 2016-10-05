@@ -1,0 +1,14 @@
+md-dialog
+  md-dialog-content layout="row" layout-padding=""
+    form id="new-order-form" name="order_form"
+      md-autocomplete flex="" required="" md-input-name="meal_name" md-selected-item="mealSelected" md-search-text="mealSearchTerm" md-items="meal in filterMeals(mealSearchTerm)" md-item-text="meal.name" md-no-cache="true" md-floating-label="Meal"
+        md-item-template
+          span md-highlight-text="mealSearchTerm" md-highlight-flags="i" {{ meal.name }}
+        div ng-messages="order_form.meal_name.$error" ng-if="order_form.meal_name.$touched"
+          div ng-message="required"
+            | You 
+            strong must 
+            | provide a meal name.
+  md-dialog-actions
+    md-button ng-click="createOrder()"
+      | Start your order

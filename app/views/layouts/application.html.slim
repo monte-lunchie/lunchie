@@ -21,11 +21,11 @@ html
                     md-icon person
                     | Profile
                 md-menu-item
-                  md-button ui-sref="new_order" ng-class="{ 'md-accent': $root.stateName == 'new_order' }"
+                  md-button ui-sref="order_new" ng-class="{ 'md-accent': $root.stateName == 'order_new' }"
                     md-icon add
                     | New order
                 md-menu-item
-                  md-button
+                  md-button ui-sref="orders_index" ng-class="{ 'md-accent': $root.stateName == 'orders_index' }"
                     md-icon today
                     | Today's orders
                 md-menu-item

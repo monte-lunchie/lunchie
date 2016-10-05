@@ -1,4 +1,4 @@
-div layout="row" layout-padding="" layout-align=("center space-around")
+div layout="row" layout-padding="" layout-align=("space-around start")
   md-card flex="33"
     img.md-card-image ng-src="#{ image_path('restaurant.jpg') }" alt="Restaurant"
     md-card-title
@@ -17,8 +17,8 @@ div layout="row" layout-padding="" layout-align=("center space-around")
               | provide a restaurant name.
           
     md-card-actions layout="row" layout-align="end center"
-      md-button ng-click="createOrder()"
-        | Start your order
+      md-button ng-click="showNewMealDialog($event)"
+        | Add a meal
     
   md-card flex="33"
     img.md-card-image ng-src="#{ image_path('restaurant2.jpg') }"

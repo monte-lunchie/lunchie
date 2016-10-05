@@ -38,7 +38,7 @@ angular
           $scope.showToastMessage 'Welcome back ' + response.nickname + '!'
 
     $scope.$on 'auth:validation-error', (event, response) ->
-      $scope.showToastMessage 'Something went wrong :('
+      $state.go 'sign-in'
 
     # sign out
     $scope.signOut = ->

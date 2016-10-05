@@ -4,8 +4,8 @@ module Api
 
     # GET /orders.json
     def index
-      @orders = Order.all
-      render json: @orders.to_json
+      @orders = Order.joins(:restaurant).left_joins(:users)
+      render json: @orders.to_json(include: [:restaurant, :users])
     end
 
     # GET /orders/1.json

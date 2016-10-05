@@ -4,7 +4,8 @@
   'ngMaterial',
   'ng-token-auth',
   'ngResource',
-  'ngMessages'
+  'ngMessages',
+  'yaru22.angular-timeago'
 ]
 
 @lunchie.config [
@@ -52,20 +53,30 @@
       abstract: true
       template: '<div ui-view=""></div>'
 
-    newOrderState =
+    ordersIndexState =
       parent: 'orders'
-      name: 'new_order'
+      name: 'orders_index'
+      url: '/index'
+      templateUrl: 'orders/index.html'
+      controller: 'OrdersIndexCtrl'
+
+    orderNewState =
+      parent: 'orders'
+      name: 'order_new'
       url: '/new'
       templateUrl: 'orders/new.html'
-      controller: 'OrderCtrl'
+      controller: 'OrderNewCtrl'
+
+
 
     $stateProvider.state signUpState
     $stateProvider.state signInState
     $stateProvider.state homeState
     $stateProvider.state userProfileState
     $stateProvider.state ordersState
-    $stateProvider.state newOrderState
+    $stateProvider.state ordersIndexState
+    $stateProvider.state orderNewState
 
-    $urlRouterProvider.otherwise '/'
+    $urlRouterProvider.otherwise '/sign_in'
     return
 ]

@@ -1,0 +1,23 @@
+div layout="row" layout-padding="" layout-align=("start center")
+  md-card flex="30" ng-repeat="order in orders"
+    md-card-title
+      md-card-title-text
+        span.md-headline
+          | {{ order.restaurant.name }}
+        span.md-subhead
+          | {{ order.created_at | timeAgo }}
+    md-card-content
+      md-list ng-if="order.users.length > 0"
+        md-subheader.md-no-stick Hungry users
+        md-list-item.md-2-line.contact-item ng-repeat="user in order.users" 
+          img.md-avatar alt="{{ user.nickname }}" ng-src="{{ user.image }}" /
+          .md-list-item-text.compact
+            h3
+              | {{ user.nickname }}
+            p
+              | {{ user.email }}
+    md-card-actions layout="row" layout-align="end center"
+      md-button ng-click="goToOrder()"
+        | View
+      md-button ng-click="join()"
+        | Join

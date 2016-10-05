@@ -1,6 +1,9 @@
 class Order < ApplicationRecord
   belongs_to :restaurant, inverse_of: :orders
   belongs_to :creator, class_name: 'User'
+  has_many :user_orders
+  has_many :users, through: :user_orders
+  has_many :meals, through: :user_orders
 
   enum state: [:active, :finalized, :ordered, :delivered]
 

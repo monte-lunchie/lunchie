@@ -1,9 +1,9 @@
 angular
   .module 'lunchie'
-  .controller 'OrderCtrl', ($scope, $timeout, $q, $mdToast, Order, Restaurant) ->
+  .controller 'OrderNewCtrl', ($scope, $timeout, $q, $mdToast, $mdDialog, Order, Restaurant) ->
     createSimpleFilter = (searchTerm) ->
-      (restaurant) ->
-        name = angular.lowercase restaurant.name
+      (item) ->
+        name = angular.lowercase items.name
         term = angular.lowercase searchTerm
 
         name.indexOf(term) != -1
@@ -32,9 +32,22 @@ angular
       deferred.resolve(results)
       deferred.promise
 
+    $scope.showNewMealDialog = ($event)->
+      if $scope.restaurantSelected == null
+        $scope.showToastMessage 'No restaurant name provided!'
+      else
+        mealDialog = $mdDialog.show
+          templateUrl: 'meals/new.html'
+          escapeToClose: true
+          clickOutsideToClose: true
+          openFrom: $event.target
+          closeTo: $event.target
+
     $scope.createOrder = ->
       if $scope.restaurantSelected == null
         $scope.showToastMessage 'No restaurant name provided!'
+      else if $scope.mealSelected == null
+        $scope.showToastMessage 'No meal provided!'
       else
         order = new Order
           order:
