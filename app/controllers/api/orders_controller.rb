@@ -4,7 +4,9 @@ module Api
 
     # GET /orders.json
     def index
-      @orders = Order.joins(:restaurant).left_joins(:users)
+      @orders = Order.joins(:restaurant).
+                      left_joins(:users).
+                      where('"orders"."created_at" >= :beginning', beginning: Time.zone.now.beginning_of_day)
       render json: @orders.to_json(include: [:restaurant, :users])
     end
 
@@ -31,7 +33,11 @@ module Api
 
       # Never trust parameters from the scary internet, only allow the white list through.
       def order_params
-        params.require(:order).permit(:creator_id, restaurant_attributes: [:id, :name])
+        restaurant_attributes = [:id, :name]
+        user_orders_attributes = { meal_attributes: [:id, :name, :price] }
+        params.require(:order).permit(:creator_id,
+                                       user_orders_attributes: user_orders_attributes,
+                                       restaurant_attributes: restaurant_attributes)
       end
   end
 end

@@ -5,4 +5,6 @@ class Restaurant < ApplicationRecord
   has_many :meals
 
   validates :name, presence: true
+
+  accepts_nested_attributes_for :meals
 end
