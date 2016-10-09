@@ -8,6 +8,7 @@ class Order < ApplicationRecord
   enum state: [:active, :finalized, :ordered, :delivered]
 
   scope :current, -> { where('"orders"."created_at" >= :beginning', beginning: Time.zone.now.beginning_of_day) }
+  default_scope -> { includes(:restaurant, :user_orders, :users, :meals) }
 
   validates_presence_of :restaurant
   validates_presence_of :state
@@ -39,6 +40,13 @@ class Order < ApplicationRecord
       user_order_attributes["user_id"] = creator_id
     end
     super
+  end
+
+  def serializable_hash(options={})
+    options = {
+      include: [:restaurant, user_orders: { include: [:user, :meal] }]
+    }.update(options)
+    super(options)
   end
 
   def set_active

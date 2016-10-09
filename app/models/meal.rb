@@ -1,5 +1,6 @@
 class Meal < ApplicationRecord
   belongs_to :restaurant
+  has_many :user_orders, inverse_of: :meal
 
   validates :name, presence: true
   validates :restaurant, presence: true

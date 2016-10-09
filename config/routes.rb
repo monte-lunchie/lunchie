@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
     resources :restaurants, only: [:index, :show, :create], controller: 'api/restaurants'
     resources :orders, only: [:index, :show, :create], controller: 'api/orders'
+    resources :user_orders, only: [:create], controller: 'api/user_orders'
   end
 
   root 'home#index'
