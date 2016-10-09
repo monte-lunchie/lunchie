@@ -9,13 +9,13 @@ angular
     $scope.showToastMessage = (message) ->
       toast = $mdToast.simple()
         .textContent message
-        .position 'bottom right'
+        .position 'top right'
         .hideDelay 5000
       $mdToast.show toast
 
     # sign up
     $scope.$on 'auth:registration-email-success', (event, response) ->
-      $state.go 'profile'
+      $state.go 'orders_index'
         .then ->
           $scope.showToastMessage 'Welcome aboard ' + response.nickname + '!'
 
@@ -25,7 +25,7 @@ angular
 
     # sign in
     $scope.$on 'auth:login-success', (event, response) ->
-      $state.go 'profile'
+      $state.go 'orders_index'
         .then ->
           $scope.showToastMessage 'Welcome back ' + response.nickname + '!'
 
@@ -35,7 +35,7 @@ angular
 
     # token auth
     $scope.$on 'auth:validation-success', (event, response) ->
-      $state.go 'profile'
+      $state.go 'orders_index'
         .then ->
           $scope.showToastMessage 'Welcome back ' + response.nickname + '!'
 

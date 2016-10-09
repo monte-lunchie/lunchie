@@ -7,7 +7,7 @@ div layout="row" layout-padding="" layout-align=("space-around start")
         span.md-subhead Pick a restaurant you want to order your meal from.
     md-card-content
       form id="new-order-form" name="order_form"
-        md-autocomplete flex="" required="" md-input-name="restaurant_name" md-selected-item="restaurantSelected" md-search-text="restaurantSearchTerm" md-items="restaurant in filterRestaurants(restaurantSearchTerm)" md-item-text="restaurant.name" md-no-cache="true" md-select-on-match="true" md-floating-label="Restaurant"      
+        md-autocomplete flex="" required="" md-input-name="restaurant_name" md-selected-item="restaurantSelected" md-search-text="restaurantSearchTerm" md-items="restaurant in filterRestaurants(restaurantSearchTerm)" md-item-text="restaurant.name" md-no-cache="true" md-floating-label="Restaurant"      
           md-item-template
             span md-highlight-text="restaurantSearchTerm" md-highlight-flags="i" {{ restaurant.name }}
           div ng-messages="order_form.restaurant_name.$error" ng-if="order_form.restaurant_name.$touched"

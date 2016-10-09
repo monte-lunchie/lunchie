@@ -16,10 +16,10 @@ html
                 img ng-src="{{ user.image || $root.defaultImg }}"
             md-content.drawer-menu flex=""
               md-menu-content
-                md-menu-item
-                  md-button ui-sref="profile" ng-class="{ 'md-accent': $root.stateName == 'profile' }"
-                    md-icon person
-                    | Profile
+                / md-menu-item
+                /   md-button ui-sref="profile" ng-class="{ 'md-accent': $root.stateName == 'profile' }"
+                /     md-icon person
+                /     | Profile
                 md-menu-item
                   md-button ui-sref="order_new" ng-class="{ 'md-accent': $root.stateName == 'order_new' }"
                     md-icon add

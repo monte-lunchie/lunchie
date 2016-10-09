@@ -1,6 +1,6 @@
 angular
   .module 'lunchie'
-  .controller 'OrdersCtrl', ($scope, $q, $mdDialog, $mdToast, Order, UserOrder) ->
+  .controller 'OrdersCtrl', ($scope, $q, $state, $mdDialog, $mdToast, Order, UserOrder) ->
     $scope.showToastMessage = (message) ->
       toast = $mdToast.simple()
         .textContent message
@@ -30,6 +30,10 @@ angular
 
       deferred.resolve(results)
       deferred.promise
+
+    $scope.setPrice = (meal) ->
+      if meal.hasOwnProperty('price')
+        $scope.mealPrice = meal.price
 
     $scope.total = ->
       $scope.order.user_orders.reduce (user_order_a, user_order_b) ->
@@ -141,10 +145,12 @@ angular
               price: $scope.mealPrice
               restaurant_id: $scope.order.restaurant.id
 
-        user_order.$save (user, response) ->
+        user_order.$save (order) ->
           $scope.clearForms()
           $mdDialog.hide()
-          $scope.showToastMessage 'Order created!'
+          $state.go $state.current, {}, { reload: true }
+          .then ->
+            $scope.showToastMessage 'Order created!'
 
     $scope.setOrderState = (state) ->
       $scope.order.state = state

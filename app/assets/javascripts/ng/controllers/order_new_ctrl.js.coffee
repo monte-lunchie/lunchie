@@ -1,6 +1,6 @@
 angular
   .module 'lunchie'
-  .controller 'OrderNewCtrl', ($scope, $timeout, $q, $mdToast, $mdDialog, Order, Restaurant) ->
+  .controller 'OrderNewCtrl', ($scope, $timeout, $q, $state, $mdToast, $mdDialog, Order, Restaurant) ->
     $parent = $scope.$parent;
     $scope.restaurants = Restaurant.query()
     $scope.order = {}
@@ -33,6 +33,10 @@ angular
 
       deferred.resolve(results)
       deferred.promise
+
+    $scope.setPrice = (meal) ->
+      if meal.price
+        $scope.mealPrice = meal.price
 
     $scope.showNewMealDialog = ($event)->
       if $scope.restaurantSelected == null
@@ -71,9 +75,14 @@ angular
                   name: $scope.mealSelected.name
                   price: $scope.mealPrice
 
-        order.$save (user, response) ->
-          $scope.clearForms()
+        order.$save (order) ->
           $mdDialog.hide()
-          $parent.showToastMessage 'Order created!'
+          $state.go('order_show', { id: order.id })
+          .then ->
+            $parent.showToastMessage 'Order created!'
+        , (response) ->
+          angular.forEach response.data, (errors, field) ->
+            angular.forEach errors, (error) ->
+              $parent.showToastMessage "#{field} #{error}"
 
     return

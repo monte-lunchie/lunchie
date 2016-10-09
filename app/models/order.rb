@@ -1,6 +1,7 @@
 class Order < ApplicationRecord
-  belongs_to :restaurant, inverse_of: :orders
   belongs_to :creator, class_name: 'User'
+  belongs_to :restaurant, inverse_of: :orders
+  has_many :restaurant_meals, through: :restaurant
   has_many :user_orders, inverse_of: :order
   has_many :users, through: :user_orders
   has_many :meals, through: :user_orders
@@ -9,7 +10,7 @@ class Order < ApplicationRecord
 
   scope :current, -> { where('"orders"."created_at" >= :beginning', beginning: Time.zone.now.beginning_of_day) }
   scope :historical, -> { where('"orders"."created_at" < :beginning', beginning: Time.zone.now.beginning_of_day) }
-  
+
   default_scope -> { includes(:restaurant, :user_orders, :users, :meals) }
 
   validates_presence_of :restaurant
@@ -18,9 +19,9 @@ class Order < ApplicationRecord
 
   # ensures that we won't have two order tickets
   # to the same restaurant for the same day
-  validates_uniqueness_of :restaurant, conditions: -> {
-    where('created_at > ?', Time.zone.now.beginning_of_day)
-  }
+  validates_uniqueness_of :restaurant,
+    conditions: -> { where('created_at > ?', Time.zone.now.beginning_of_day)},
+    message: 'has already an active order!'
 
   accepts_nested_attributes_for :restaurant
   accepts_nested_attributes_for :user_orders
@@ -45,9 +46,10 @@ class Order < ApplicationRecord
   end
 
   def serializable_hash(options={})
-    options = {
-      include: [:restaurant, user_orders: { include: [:user, :meal] }]
-    }.update(options)
+    options = { include: [
+      { restaurant: { include: [:meals] } },
+      { user_orders: { include: [:user, :meal] } }
+    ]}.update(options)
     super(options)
   end
 

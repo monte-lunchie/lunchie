@@ -6,10 +6,10 @@ module Api
 
     def index
       @orders = if params[:scope] and params[:scope].to_sym.in?(ALLOWED_SCOPES)
-        Order.send(params[:scope])
+        Order.send(params[:scope]).order(:created_at)
       else
-        Order.current
-      end.order(:state, :created_at)
+        Order.current.order(:state, :created_at)
+      end
 
       render json: @orders.to_json
     end
