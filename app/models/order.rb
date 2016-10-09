@@ -56,10 +56,13 @@ class Order < ApplicationRecord
   end
 
   def serializable_hash(options={})
-    options = { include: [
-      { restaurant: { include: [:meals] } },
-      { user_orders: { include: [:user, :meal] } }
-    ]}.update(options)
+    options = {
+      include: [
+        { restaurant: { include: [:meals] } },
+        { user_orders: { include: [:user, :meal] } }
+      ],
+      methods: [:is_historical]
+    }.update(options)
     super(options)
   end
 
@@ -73,10 +76,13 @@ class Order < ApplicationRecord
   end
 
   def update_time
-    if created_at < Time.zone.now.beginning_of_day
-      errors.add :base, 'Cannot update archived orders'
-    end
+    errors.add :base, 'Cannot update archived orders' if historical?
   end
+
+  def historical?
+    created_at < Time.zone.now.beginning_of_day
+  end
+  alias_method :is_historical, :historical?
 
   def set_active
     self.state = :active

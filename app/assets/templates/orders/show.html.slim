@@ -4,8 +4,10 @@ div layout="row" layout-padding="" layout-align=("start start")
       md-card-title-text
         span.md-headline
           | {{ ::order.restaurant.name }}
-        span.md-subhead
+        span.md-subhead ng-if="!order.is_historical"
           | {{ order.created_at | timeAgo }}
+        span.md-subhead ng-if="order.is_historical"
+          | Created on {{ order.created_at | date:'d.MM.yyyy' }} at {{ order.created_at | date:'h:mm' }}
     md-card-content
       md-list ng-if="order.user_orders.length > 0"
         md-list-item.md-3-line ng-repeat="user_order in order.user_orders" 
@@ -17,7 +19,7 @@ div layout="row" layout-padding="" layout-align=("start start")
               | {{ ::user_order.user.email }}
             p
               | {{ ::user_order.meal.name }} ({{ ::user_order.meal.price | currency:'PLN ' }})
-    md-card-actions layout="row" layout-align="end center"
+    md-card-actions layout="row" layout-align="end center" ng-if="!order.is_historical"
       md-button ng-if="$parent.canJoinOrder(user, order)" ng-click="$parent.showJoinDialog($event, order)"
         | Join
       md-button ng-if="$parent.canFinalizeOrder(user, order)" ng-click="$parent.showOrderFinalizeDialog($event, order)"

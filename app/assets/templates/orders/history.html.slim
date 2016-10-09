@@ -6,8 +6,8 @@ md-content layout="row" layout-padding="" layout-align=("start start") layout-wr
           | {{ ::order.restaurant.name }}
         span.md-subhed
           | ({{ ::order.state }})
-        span.md-subhead
-          | Created {{ order.created_at | timeAgo }}
+        span.md-subhead ng-if="order.is_historical"
+          | Created on {{ order.created_at | date:'d.MM.yyyy' }} at {{ order.created_at | date:'h:mm' }}
     md-card-content
       md-list ng-if="order.user_orders.length > 0"
         md-list-item.md-2-line ng-repeat="user_order in order.user_orders" 
