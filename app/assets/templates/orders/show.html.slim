@@ -1,0 +1,29 @@
+div layout="row" layout-padding="" layout-align=("start start")
+  md-card flex=""
+    md-card-title
+      md-card-title-text
+        span.md-headline
+          | {{ ::order.restaurant.name }}
+        span.md-subhead
+          | {{ order.created_at | timeAgo }}
+    md-card-content
+      md-list ng-if="order.user_orders.length > 0"
+        md-subheader.md-no-stick Hungry users
+        md-list-item.md-2-line.contact-item ng-repeat="user_order in order.user_orders" 
+          img.md-avatar alt="{{ ::user_order.user.nickname }}" ng-src="{{ ::user_order.user.image || $root.defaultImg }}" /
+          .md-list-item-text.compact
+            h3
+              | {{ ::user_order.user.nickname }}
+            h4
+              | {{ ::user_order.user.email }}
+            p
+              | {{ ::user_order.meal.name }} ({{ ::user_order.meal.price | currency:'PLN ' }})
+    md-card-actions layout="row" layout-align="end center"
+      md-button ng-if="$parent.canJoinOrder(user, order)" ng-click="$parent.joinOrder($event, order)"
+        | Join
+      md-button ng-if="$parent.canFinalizeOrder(user, order)" ng-click="$parent.finalizeOrder($event, order)"
+        | Finalize
+      md-button ng-if="$parent.canConfirmOrderPlacement(user, order)" ng-click="$parent.confirmOrderPlacement($event, order)"
+        | Confirm placing order
+      md-button ng-if="$parent.canConfirmOrderDelivery(user, order)" ng-click="$parent.confirmOrderDelivery($event, order)"
+        | Confirm delivery

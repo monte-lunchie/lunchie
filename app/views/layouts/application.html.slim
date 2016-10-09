@@ -13,7 +13,7 @@ html
           md-sidenav.md-sidenav-left flex="15" ng-hide="!user.signedIn" md-component-id="drawer" md-is-locked-open="true" md-disable-backdrop="" md-whiteframe="4" layout="column" layout-align=("top stretch")
             md-content.drawer-header layout="row" layout-align=("center center") layout-padding=""
               .drawer-avatar
-                img ng-src="{{ user.image }}" src="https://openclipart.org/image/2400px/svg_to_png/215868/Awesome-Tux.png"
+                img ng-src="{{ user.image || $root.defaultImg }}"
             md-content.drawer-menu flex=""
               md-menu-content
                 md-menu-item

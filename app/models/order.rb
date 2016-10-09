@@ -7,6 +7,8 @@ class Order < ApplicationRecord
 
   enum state: [:active, :finalized, :ordered, :delivered]
 
+  scope :current, -> { where('"orders"."created_at" >= :beginning', beginning: Time.zone.now.beginning_of_day) }
+
   validates_presence_of :restaurant
   validates_presence_of :state
   validates_presence_of :creator

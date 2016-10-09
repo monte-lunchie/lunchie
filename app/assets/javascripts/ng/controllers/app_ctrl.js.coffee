@@ -4,6 +4,8 @@ angular
     $rootScope.$on '$stateChangeSuccess', (event, toState) ->
       $rootScope.stateName = toState.name
 
+    $rootScope.defaultImg = "http://piggymakesbank.com/wp-content/uploads/2014/09/smart-piggy-transparent.png"
+
     $scope.showToastMessage = (message) ->
       toast = $mdToast.simple()
         .textContent message
@@ -47,7 +49,7 @@ angular
     $scope.$on 'auth:logout-success', (event, response) ->
       $state.go 'sign-in'
         .then ->
-          $scope.showToastMessage 'See you soon ' + response.nickname + '!'
+          $scope.showToastMessage 'See you soon!'
 
     $scope.$on 'auth:logout-error', (event, response) ->
       $scope.showToastMessage 'Something went wrong :('

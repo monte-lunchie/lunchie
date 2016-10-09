@@ -1,23 +1,23 @@
-div layout="row" layout-padding="" layout-align=("start center")
+div layout="row" layout-padding="" layout-align=("start start") layout-wrap=""
   md-card flex="30" ng-repeat="order in orders"
     md-card-title
       md-card-title-text
         span.md-headline
-          | {{ order.restaurant.name }}
+          | {{ ::order.restaurant.name }}
         span.md-subhead
           | {{ order.created_at | timeAgo }}
     md-card-content
-      md-list ng-if="order.users.length > 0"
+      md-list ng-if="order.user_orders.length > 0"
         md-subheader.md-no-stick Hungry users
-        md-list-item.md-2-line.contact-item ng-repeat="user in order.users" 
-          img.md-avatar alt="{{ user.nickname }}" ng-src="{{ user.image }}" /
+        md-list-item.md-2-line.contact-item ng-repeat="user_order in order.user_orders" 
+          img.md-avatar alt="{{ ::user_order.user.nickname }}" ng-src="{{ user_order.user.image || $root.defaultImg }}" /
           .md-list-item-text.compact
             h3
-              | {{ user.nickname }}
+              | {{ ::user_order.user.nickname }}
             p
-              | {{ user.email }}
+              | {{ ::user_order.user.email }}
     md-card-actions layout="row" layout-align="end center"
-      md-button ng-click="goToOrder()"
+      md-button ui-sref="order_show({ id: order.id })"
         | View
-      md-button ng-click="join()"
+      md-button ng-if="$parent.canJoinOrder(user, order)" ng-click="$parent.showJoinDialog($event, order)"
         | Join

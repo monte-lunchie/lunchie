@@ -52,6 +52,7 @@
       url: '/orders'
       abstract: true
       template: '<div ui-view=""></div>'
+      controller: 'OrdersCtrl'
 
     ordersIndexState =
       parent: 'orders'
@@ -67,6 +68,12 @@
       templateUrl: 'orders/new.html'
       controller: 'OrderNewCtrl'
 
+    orderShowState =
+      parent: 'orders'
+      name: 'order_show'
+      url: '/{id:[0-9]{1,8}}'
+      templateUrl: 'orders/show.html'
+      controller: 'OrderShowCtrl'
 
 
     $stateProvider.state signUpState
@@ -76,6 +83,7 @@
     $stateProvider.state ordersState
     $stateProvider.state ordersIndexState
     $stateProvider.state orderNewState
+    $stateProvider.state orderShowState
 
     $urlRouterProvider.otherwise '/sign_in'
     return
