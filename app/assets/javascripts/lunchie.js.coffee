@@ -75,6 +75,12 @@
       templateUrl: 'orders/show.html'
       controller: 'OrderShowCtrl'
 
+    ordersHistoryState =
+      parent: 'orders'
+      name: 'orders_history'
+      url: '/history'
+      templateUrl: 'orders/history.html'
+      controller: 'OrdersHistoryCtrl'
 
     $stateProvider.state signUpState
     $stateProvider.state signInState
@@ -82,6 +88,7 @@
     $stateProvider.state userProfileState
     $stateProvider.state ordersState
     $stateProvider.state ordersIndexState
+    $stateProvider.state ordersHistoryState
     $stateProvider.state orderNewState
     $stateProvider.state orderShowState
 

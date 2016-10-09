@@ -2,8 +2,15 @@ module Api
   class OrdersController < ApiController
     before_action :load_order, only: [:show, :update]
 
+    ALLOWED_SCOPES = [:historical]
+
     def index
-      @orders = Order.current.order(:state)
+      @orders = if params[:scope] and params[:scope].to_sym.in?(ALLOWED_SCOPES)
+        Order.send(params[:scope])
+      else
+        Order.current
+      end.order(:state, :created_at)
+
       render json: @orders.to_json
     end
 
