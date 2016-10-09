@@ -164,7 +164,10 @@ angular
       , (response) ->
         angular.forEach response.data, (errors, field) ->
           angular.forEach errors, (error) ->
-            $scope.showToastMessage "#{field} #{error}"
+            if field == 'base'
+              $parent.showToastMessage error
+            else
+              $parent.showToastMessage "#{field} #{error}"
 
     $scope.setOrdered = ->
       $scope.setOrderState 'ordered'

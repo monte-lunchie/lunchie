@@ -6,7 +6,7 @@ module Api
 
     def index
       @orders = if params[:scope] and params[:scope].to_sym.in?(ALLOWED_SCOPES)
-        Order.send(params[:scope]).order(:created_at)
+        Order.send(params[:scope])
       else
         Order.current.order(:state, :created_at)
       end

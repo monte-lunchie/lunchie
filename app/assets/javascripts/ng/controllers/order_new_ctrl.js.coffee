@@ -83,6 +83,9 @@ angular
         , (response) ->
           angular.forEach response.data, (errors, field) ->
             angular.forEach errors, (error) ->
-              $parent.showToastMessage "#{field} #{error}"
+              if field == 'base'
+                $parent.showToastMessage error
+              else
+                $parent.showToastMessage "#{field} #{error}"
 
     return
