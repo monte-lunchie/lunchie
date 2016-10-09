@@ -29,6 +29,10 @@ html
                     md-icon today
                     | Today's orders
                 md-menu-item
+                  md-button ui-sref="orders_index" ng-class="{ 'md-accent': $root.stateName == 'orders_index' }"
+                    md-icon history
+                    | History
+                md-menu-item
                   md-button ng-click="signOut()"
                     md-icon exit_to_app
                     | Sign out

@@ -3,7 +3,7 @@ module Api
     before_action :load_order, only: [:show, :update]
 
     def index
-      @orders = Order.current
+      @orders = Order.current.order(:state)
       render json: @orders.to_json
     end
 

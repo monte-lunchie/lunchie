@@ -1,22 +1,26 @@
-div layout="row" layout-padding="" layout-align=("start start") layout-wrap=""
-  md-card md-theme="{{ $parent.stateStyle(order) }}" md-theme-watch="" flex="30" ng-repeat="order in orders"
-    md-card-title
-      md-card-title-text
-        span.md-headline
-          | {{ ::order.restaurant.name }}
-        span.md-subhead
-          | {{ order.created_at | timeAgo }}
-    md-card-content
-      md-list ng-if="order.user_orders.length > 0"
-        md-list-item.md-2-line ng-repeat="user_order in order.user_orders" 
-          img.md-avatar alt="{{ ::user_order.user.nickname }}" ng-src="{{ user_order.user.image || $root.defaultImg }}" /
-          .md-list-item-text
-            h3
-              | {{ ::user_order.user.nickname }}
-            p
-              | {{ ::user_order.user.email }}
-    md-card-actions layout="row" layout-align="end center"
-      md-button ui-sref="order_show({ id: order.id })"
-        | View
-      md-button ng-if="$parent.canJoinOrder(user, order)" ng-click="$parent.showJoinDialog($event, order)"
-        | Join
+md-tabs md-dynamic-height="" md-border-bottom=""
+  md-tab label="{{ state }}" ng-repeat="state in ['active', 'finalized', 'ordered', 'delivered']"
+    md-content layout="row" layout-padding="" layout-align=("start start") layout-wrap=""
+      md-card md-theme="{{ $parent.stateStyle(order) }}" md-theme-watch="" flex="30" ng-repeat="order in filterOrders(state)"
+        md-card-title
+          md-card-title-text
+            span.md-headline
+              | {{ ::order.restaurant.name }}
+            span.md-subhed
+              | ({{ ::order.state }})
+            span.md-subhead
+              | Created {{ order.created_at | timeAgo }}
+        md-card-content
+          md-list ng-if="order.user_orders.length > 0"
+            md-list-item.md-2-line ng-repeat="user_order in order.user_orders" 
+              img.md-avatar alt="{{ ::user_order.user.nickname }}" ng-src="{{ user_order.user.image || $root.defaultImg }}" /
+              .md-list-item-text
+                h3
+                  | {{ ::user_order.user.nickname }}
+                p
+                  | {{ ::user_order.user.email }}
+        md-card-actions layout="row" layout-align="end center"
+          md-button ui-sref="order_show({ id: order.id })"
+            | View
+          md-button ng-if="$parent.canJoinOrder(user, order)" ng-click="$parent.showJoinDialog($event, order)"
+            | Join
