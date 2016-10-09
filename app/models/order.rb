@@ -23,6 +23,10 @@ class Order < ApplicationRecord
     conditions: -> { where('created_at > ?', Time.zone.now.beginning_of_day)},
     message: 'has already an active order!'
 
+  # ensures that the states won't be skipped
+  # nor they will be updated twice
+  validate :state_changes_order, on: :update
+
   accepts_nested_attributes_for :restaurant
   accepts_nested_attributes_for :user_orders
 
@@ -51,6 +55,21 @@ class Order < ApplicationRecord
       { user_orders: { include: [:user, :meal] } }
     ]}.update(options)
     super(options)
+  end
+
+  def state_changes_order
+    puts "***********"
+    puts state_was
+    puts "***********"
+    puts state
+    puts "***********"
+
+    if (state_was != 'active' and state == 'finalized') or
+       (state_was != 'finalized' and state == 'ordered') or
+       (state_was != 'ordered' and state == 'delivered')
+
+       errors.add :state, 'has already been changed by someone else'
+    end
   end
 
   def set_active

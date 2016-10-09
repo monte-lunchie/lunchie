@@ -153,11 +153,18 @@ angular
             $scope.showToastMessage 'Order created!'
 
     $scope.setOrderState = (state) ->
-      $scope.order.state = state
       Order.update { id: $scope.order.id },
         order:
           id: $scope.order.id
-          state: $scope.order.state
+          state: state
+      , (order) ->
+        # has to be set explicitly for theming
+        $scope.order.state = order.state
+        $scope.order = order
+      , (response) ->
+        angular.forEach response.data, (errors, field) ->
+          angular.forEach errors, (error) ->
+            $scope.showToastMessage "#{field} #{error}"
 
     $scope.setOrdered = ->
       $scope.setOrderState 'ordered'
