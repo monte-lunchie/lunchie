@@ -1,6 +1,6 @@
 angular
   .module 'lunchie'
-  .controller 'OrdersCtrl', ($scope, $q, $mdDialog, $mdToast, UserOrder) ->
+  .controller 'OrdersCtrl', ($scope, $q, $mdDialog, $mdToast, Order, UserOrder) ->
     $scope.showToastMessage = (message) ->
       toast = $mdToast.simple()
         .textContent message
@@ -30,6 +30,16 @@ angular
 
       deferred.resolve(results)
       deferred.promise
+
+    $scope.total = ->
+      $scope.order.user_orders.reduce (user_order_a, user_order_b) ->
+        user_order_a.meal.price + user_order_b.meal.price
+
+    $scope.stateStyle = (order) ->
+      if order.state == "active"
+        'default'
+      else
+        order.state
 
     $scope.canJoinOrder = (user, order) ->
       if order and order.hasOwnProperty('user_orders')
@@ -67,17 +77,51 @@ angular
           scope: $scope
           preserveScope: true
 
-    $scope.showFinalizeDialog = ($event, order) ->
+    $scope.showOrderFinalizeDialog = ($event, order) ->
+      $scope.order = order
+
+      confirmDialog = $mdDialog.confirm()
+      .title 'Are you sure you want to finalize the order?'
+      .textContent 'The order state will be set to finalized. No one will be able to add their orders to the list.'
+      .theme 'default'
+      .targetEvent $event
+      .ok 'Finalize it!'
+      .cancel 'Cancel'
+
+      $mdDialog.show confirmDialog,
+        escapeToClose: true
+        clickOutsideToClose: true
+      .then ->
+        $scope.setOrderState('finalized')
+
+    $scope.showOrderConfirmationDialog = ($event, order) ->
       $scope.order = order
 
       $mdDialog.show
-        templateUrl: 'orders/finalize.html'
+        templateUrl: 'orders/order.html'
         escapeToClose: true
         clickOutsideToClose: true
         openFrom: $event.target
         closeTo: $event.target
         scope: $scope
         preserveScope: true
+
+    $scope.showOrderDeliveryDialog = ($event, order) ->
+      $scope.order = order
+
+      confirmDialog = $mdDialog.confirm()
+      .title 'Are you sure you want to set the state to delivered?'
+      .textContent 'The order state will be set to delivered. Everyone will see the food has arrived. Be aware.'
+      .theme 'default'
+      .targetEvent $event
+      .ok 'Yes, it\'s here!'
+      .cancel 'It\'s not here yet'
+
+      $mdDialog.show confirmDialog,
+        escapeToClose: true
+        clickOutsideToClose: true
+      .then ->
+        $scope.setOrderState('delivered')
 
     $scope.addOrder = ->
       if !($scope.order && $scope.order.restaurant_id)
@@ -101,3 +145,14 @@ angular
           $scope.clearForms()
           $mdDialog.hide()
           $scope.showToastMessage 'Order created!'
+
+    $scope.setOrderState = (state) ->
+      $scope.order.state = state
+      Order.update { id: $scope.order.id },
+        order:
+          id: $scope.order.id
+          state: $scope.order.state
+
+    $scope.setOrdered = ->
+      $scope.setOrderState 'ordered'
+      $mdDialog.hide()

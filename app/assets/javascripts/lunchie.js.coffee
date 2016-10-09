@@ -14,11 +14,11 @@
   '$authProvider',
   '$mdThemingProvider',
   '$resourceProvider',
-  ($stateProvider, $urlRouterProvider, $authProvider, $resourceProvider) ->
-    # $resourceProvider.defaults.actions.get.responseType = 'json'
-    # $resourceProvider.defaults.actions.save.responseType = 'json'
-    # $resourceProvider.defaults.actions.query.responseType = 'json'
-    # $resourceProvider.defaults.actions.delete.responseType = 'json'
+  ($stateProvider, $urlRouterProvider, $authProvider, $mdThemingProvider) ->
+
+    $mdThemingProvider.theme('finalized').backgroundPalette('orange');
+    $mdThemingProvider.theme('ordered').backgroundPalette('blue');
+    $mdThemingProvider.theme('delivered').backgroundPalette('green');
 
     $authProvider.configure
       apiUrl: '/api'

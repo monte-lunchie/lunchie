@@ -1,0 +1,31 @@
+md-dialog flex="60"
+  md-toolbar
+    .md-toolbar-tools
+      h2 Place the order
+  md-dialog-content layout="column" layout-padding=""
+    table padding="2" style="width: 100%;" ng-if="order.user_orders.length > 0"
+      thead
+        tr
+          th style="text-align: left;"
+            | User
+          th style="text-align: left;"
+            | Order
+          th style="text-align: left;"
+            | Price
+      tbody
+        tr ng-repeat="user_order in order.user_orders"
+          td
+            | {{ ::user_order.user.nickname }}
+          td
+            | {{ ::user_order.meal.name }}
+          td
+            | {{ ::user_order.meal.price | currency:'PLN ' }}
+      tfoot ng-if="order.user_orders.length > 1"
+        tr
+          td colspan="2" style="font-weight: bold;"
+            | Sum
+          td style="font-weight: bold;"
+            | {{ total() | currency:'PLN '}}
+  md-dialog-actions
+    md-button ng-click="setOrdered()"
+      | Confirm ordered

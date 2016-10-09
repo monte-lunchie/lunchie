@@ -22,7 +22,7 @@ module Api
 
     def update
       if @order.update(update_order_params)
-        render json: @order.to_json, status: :created
+        render json: @order.to_json, status: :ok
       else
         render json: @order.errors, status: :unprocessable_entity
       end
@@ -42,7 +42,7 @@ module Api
       end
 
       def update_order_params
-        params.require(:order).permit(:id, :status)
+        params.require(:order).permit(:id, :state)
       end
   end
 end

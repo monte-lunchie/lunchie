@@ -1,5 +1,5 @@
 div layout="row" layout-padding="" layout-align=("start start") layout-wrap=""
-  md-card flex="30" ng-repeat="order in orders"
+  md-card md-theme="{{ $parent.stateStyle(order) }}" md-theme-watch="" flex="30" ng-repeat="order in orders"
     md-card-title
       md-card-title-text
         span.md-headline
@@ -8,10 +8,9 @@ div layout="row" layout-padding="" layout-align=("start start") layout-wrap=""
           | {{ order.created_at | timeAgo }}
     md-card-content
       md-list ng-if="order.user_orders.length > 0"
-        md-subheader.md-no-stick Hungry users
-        md-list-item.md-2-line.contact-item ng-repeat="user_order in order.user_orders" 
+        md-list-item.md-2-line ng-repeat="user_order in order.user_orders" 
           img.md-avatar alt="{{ ::user_order.user.nickname }}" ng-src="{{ user_order.user.image || $root.defaultImg }}" /
-          .md-list-item-text.compact
+          .md-list-item-text
             h3
               | {{ ::user_order.user.nickname }}
             p

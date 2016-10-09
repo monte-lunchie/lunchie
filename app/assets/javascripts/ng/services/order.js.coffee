@@ -1,4 +1,5 @@
 angular
   .module 'lunchie'
   .factory 'Order', ($resource) ->
-    $resource "api/orders/:id", { id: '@id' }
+    $resource "api/orders/:id", { id: '@id' },
+      update: { method: 'PATCH' }
