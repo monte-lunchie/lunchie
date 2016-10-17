@@ -25,18 +25,20 @@ class Order < ApplicationRecord
   # ensures that we won't have two order tickets
   # to the same restaurant for the same day
   validates_uniqueness_of :restaurant,
-    conditions: -> { where('created_at > ?', Time.zone.now.beginning_of_day)},
+    conditions: -> {
+      where('created_at > ?', Time.zone.now.beginning_of_day).
+      where(state: :active)
+    },
     message: 'has already an active order!'
 
   # ensures that the states won't be skipped
   # nor they will be updated twice
-  validate :state_changes_order, on: :update
+  validate :state_changes_order, on: :update, if: :state_changed?
   validate :update_time, on: :update
 
   accepts_nested_attributes_for :restaurant
   accepts_nested_attributes_for :user_orders
 
-  before_validation :set_active, on: :create
   before_validation :add_meal_to_restaurant, on: :create
 
   def restaurant_attributes=(attributes)
@@ -84,12 +86,10 @@ class Order < ApplicationRecord
   end
   alias_method :is_historical, :historical?
 
-  def set_active
-    self.state = :active
-  end
-
   def add_meal_to_restaurant
-    self.user_orders.first.meal.restaurant = self.restaurant
+    if self.user_orders.count > 0
+      self.user_orders.first.meal.restaurant = self.restaurant
+    end
   end
 
 end
