@@ -87,7 +87,7 @@ class Order < ApplicationRecord
   alias_method :is_historical, :historical?
 
   def add_meal_to_restaurant
-    if self.user_orders.count > 0
+    if self.user_orders.any?
       self.user_orders.first.meal.restaurant = self.restaurant
     end
   end

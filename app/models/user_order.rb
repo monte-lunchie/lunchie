@@ -10,6 +10,8 @@ class UserOrder < ApplicationRecord
   def meal_attributes=(attributes)
     if attributes['id'].present?
       self.meal = Meal.find(attributes['id'])
+    else
+      attributes['restaurant_id'] = order.restaurant_id
     end
     super
   end
